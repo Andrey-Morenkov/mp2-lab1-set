@@ -17,9 +17,9 @@ typedef unsigned int TELEM;
 class TBitField
 {
 private:
-  int  BitLen; // длина битового поля - макс. к-во битов - BitSize
-  TELEM *pMem; // память для представления битового поля
-  int  MemLen; // к-во эл-тов Мем для представления бит.поля  - Size
+  int  BitSize; // длина битового поля - макс. к-во битов - BitSize - BitLen
+  TELEM* mas; // память для представления битового поля
+  int  size; // к-во эл-тов Мем для представления бит.поля  - Size - MemLen
 
   // методы реализации
   int   GetMemIndex(const int n) const; // индекс в pМем для бита n       (#О2)
