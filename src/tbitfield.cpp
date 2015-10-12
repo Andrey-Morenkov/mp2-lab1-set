@@ -111,13 +111,13 @@ int TBitField::operator==(const TBitField &bf) const // сравнение
 int TBitField::operator!=(const TBitField &bf) const // сравнение
 {
   int sum1=0,sum2=0;
-  for(int i=0;i<size;i++)
+  for(int i=0; i<size; i++)
   {
-	sum1+=mas[i];
+	sum1 += mas[i];
   }
-  for(int i=0;i<size;i++)
+  for(int i=0; i<size; i++)
   {
-	sum2+=bf.mas[i];
+	sum2 += bf.mas[i];
   }
   if (sum1 == sum2)
 	return 0;
@@ -127,25 +127,39 @@ int TBitField::operator!=(const TBitField &bf) const // сравнение
 
 TBitField TBitField::operator|(const TBitField &bf) // операция "или"
 {
-
+	TBitField tmp (BitSize);
+	for (int i=0; i<size; i++)
+	{
+		tmp.mas[i] = mas[i] | bf.mas[i];
+	}
+	return tmp;
 }
 
 TBitField TBitField::operator&(const TBitField &bf) // операция "и"
 {
+	TBitField tmp (BitSize);
+	for (int i=0; i<size; i++)
+	{
+		tmp.mas[i] = mas[i] & bf.mas[i];
+	}
+	return tmp;
 }
 
 TBitField TBitField::operator~(void) // отрицание
 {
-	for(int i=0;i<size;i++)
-    {
-	  mas[i]=~mas[i];
-    }	
+	TBitField tmp (BitSize);
+	for (int i=0; i<size; i++)
+	{
+		tmp.mas[i] = ~mas[i];
+	}
+	return tmp;
 }
 
 // ввод/вывод
 
 istream &operator>>(istream &istr, TBitField &bf) // ввод
 {
+
 
 }
 

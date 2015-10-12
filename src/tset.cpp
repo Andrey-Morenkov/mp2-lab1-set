@@ -6,8 +6,9 @@
 // Множество - реализация через битовые поля
 
 #include "tset.h"
+#include "tbitfield.h"
 
-TSet::TSet(int mp) : BitField(-1)
+TSet::TSet(int mp) : BitField(mp),MaxPower(mp)
 {
 }
 
@@ -19,6 +20,8 @@ TSet::TSet(const TSet &s) : BitField(-1)
 // конструктор преобразования типа
 TSet::TSet(const TBitField &bf) : BitField(-1)
 {
+	BitField = bf;
+	MaxPower = bf.GetLength();
 }
 
 TSet::operator TBitField()
@@ -31,15 +34,17 @@ int TSet::GetMaxPower(void) const // получить макс. к-во эл-т�
 
 int TSet::IsMember(const int Elem) const // элемент множества?
 {
-    return 0;
+    return BitField.GetBit(Elem);
 }
 
 void TSet::InsElem(const int Elem) // включение элемента множества
 {
+	BitField.SetBit(Elem);
 }
 
 void TSet::DelElem(const int Elem) // исключение элемента множества
 {
+	BitField.ClrBit(Elem);
 }
 
 // теоретико-множественные операции
@@ -59,6 +64,10 @@ int TSet::operator!=(const TSet &s) const // сравнение
 
 TSet TSet::operator+(const TSet &s) // объединение
 {
+	TBitField tmp (MaxPower);
+	tmp = BitField | s.BitField;
+	TSet _S (tmp);
+	return _S;
 }
 
 TSet TSet::operator+(const int Elem) // объединение с элементом
@@ -81,6 +90,11 @@ TSet TSet::operator~(void) // дополнение
 
 istream &operator>>(istream &istr, TSet &s) // ввод
 {
+	int i=0;
+	while ((i >= 0)&&(i < s.MaxPower))
+	{
+		s.InsElem(i);77
+	}
 }
 
 ostream& operator<<(ostream &ostr, const TSet &s) // вывод
