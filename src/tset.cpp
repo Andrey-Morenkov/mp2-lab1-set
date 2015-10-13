@@ -15,6 +15,8 @@ TSet::TSet(int mp) : BitField(mp),MaxPower(mp)
 // конструктор копирования
 TSet::TSet(const TSet &s) : BitField(-1)
 {
+	MaxPower = s.MaxPower ;
+	BitField = s.BitField ;
 }
 
 // конструктор преобразования типа
@@ -24,12 +26,15 @@ TSet::TSet(const TBitField &bf) : BitField(-1)
 	MaxPower = bf.GetLength();
 }
 
+// оператор преобразования типа 
 TSet::operator TBitField()
 {
+	return (BitField);
 }
 
 int TSet::GetMaxPower(void) const // получить макс. к-во эл-тов
 {
+	return (MaxPower);
 }
 
 int TSet::IsMember(const int Elem) const // элемент множества?
@@ -51,15 +56,25 @@ void TSet::DelElem(const int Elem) // исключение элемента мн
 
 TSet& TSet::operator=(const TSet &s) // присваивание
 {
+	MaxPower = s.MaxPower ;
+	BitField = s.BitField ;
+	return *this;
 }
 
 int TSet::operator==(const TSet &s) const // сравнение
 {
-    return 0;
+	if ((MaxPower == s.MaxPower)&&(BitField == s.BitField))
+    	return 1;
+	else
+		return 0;
 }
 
 int TSet::operator!=(const TSet &s) const // сравнение
 {
+	if ((MaxPower == s.MaxPower)&&(BitField == s.BitField))
+    	return 0;
+	else
+		return 1;
 }
 
 TSet TSet::operator+(const TSet &s) // объединение
@@ -72,18 +87,30 @@ TSet TSet::operator+(const TSet &s) // объединение
 
 TSet TSet::operator+(const int Elem) // объединение с элементом
 {
+	TSet tmp(*this);
+	tmp.BitField.SetBit(Elem);
+	return tmp;
 }
 
 TSet TSet::operator-(const int Elem) // разность с элементом
 {
+	TSet tmp(*this);
+	tmp.BitField.ClrBit(Elem);
+	return (tmp);
 }
 
 TSet TSet::operator*(const TSet &s) // пересечение
 {
+	TSet tmp(MaxPower);
+	tmp.BitField = BitField & s.BitField;
+	return tmp;
 }
 
 TSet TSet::operator~(void) // дополнение
 {
+	TSet tmp(MaxPower);
+	tmp.BitField = ~BitField;
+	return tmp;
 }
 
 // перегрузка ввода/вывода
@@ -93,10 +120,26 @@ istream &operator>>(istream &istr, TSet &s) // ввод
 	int i=0;
 	while ((i >= 0)&&(i < s.MaxPower))
 	{
-		s.InsElem(i);77
+		s.InsElem(i);
+		istr >> i ;
 	}
+	return istr;
 }
 
 ostream& operator<<(ostream &ostr, const TSet &s) // вывод
 {
+	ostr<<"[";
+	for(int i=0; i<(s.MaxPower - 1); i++)
+	{
+		if (s.BitField.GetBit(i))
+		{
+			ostr<<i;
+		}
+	}
+	int z = s.MaxPower;
+	if (s.BitField.GetBit(z))
+		{
+			ostr<<z<<"]"<<endl;
+		}
+	return ostr;
 }

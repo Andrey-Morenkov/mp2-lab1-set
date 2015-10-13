@@ -10,6 +10,7 @@
 #include <iostream>
 #include <stdlib.h>
 #include <locale.h>
+#include <string>
 #include <conio.h>
 #include <dos.h>
 using namespace std;
@@ -89,6 +90,7 @@ TBitField& TBitField::operator=(const TBitField &bf) // присваивание
 	size=bf.size;
 	for(int i=0;i<size;i++)
 		mas[i]=bf.mas[i];
+	return *this;
 }
 
 int TBitField::operator==(const TBitField &bf) const // сравнение
@@ -159,18 +161,31 @@ TBitField TBitField::operator~(void) // отрицание
 
 istream &operator>>(istream &istr, TBitField &bf) // ввод
 {
-
-
+	string str;
+	getline(istr, str);
+	for (int i = (str.size()-1); i >0; i--)
+	{
+		if (str[i] == 0)
+			bf.ClrBit(i);
+		else
+			bf.SetBit(i);
+	}
+	return istr;
 }
 
 ostream &operator<<(ostream &ostr, const TBitField &bf) // вывод
 {
-	ostr<<"[";
+    /*ostr<<"[";
 	for(int i=0;i<(bf.BitSize - 1);i++)
 	{
 	   ostr<<bf.GetBit(i);
 	}
 	int z = bf.BitSize;
 	ostr<<bf.GetBit(z)<<"]"<<endl;
+	return ostr;*/
+	for(int i=0; i<bf.BitSize; i++)
+	{
+	   ostr<<bf.GetBit(i);
+	}
 	return ostr;
 }
