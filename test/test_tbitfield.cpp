@@ -231,7 +231,7 @@ TEST(TBitField, can_invert_bitfield)
   TBitField bf(size), negBf(size), expNegBf(size);
   // bf = 01
   bf.SetBit(1);
-  negBf = ~bf;
+  negBf = (~bf);
 
   // expNegBf = 10
   expNegBf.SetBit(0);

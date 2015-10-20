@@ -8,7 +8,7 @@
 #include "tset.h"
 #include "tbitfield.h"
 
-TSet::TSet(int mp) : BitField(mp),MaxPower(mp)
+TSet::TSet(int mp = 100) : BitField(mp),MaxPower(mp)
 {
 }
 
@@ -56,9 +56,13 @@ void TSet::DelElem(const int Elem) // исключение элемента мн
 
 TSet& TSet::operator=(const TSet &s) // присваивание
 {
-	MaxPower = s.MaxPower ;
+	/*MaxPower = s.MaxPower ;
 	BitField = s.BitField ;
-	return *this;
+	return *this;*/
+	TSet tmp;
+	tmp.BitField = s.BitField;
+	tmp.MaxPower = s.MaxPower;
+	return tmp;
 }
 
 int TSet::operator==(const TSet &s) const // сравнение
@@ -101,9 +105,13 @@ TSet TSet::operator-(const int Elem) // разность с элементом
 
 TSet TSet::operator*(const TSet &s) // пересечение
 {
-	TSet tmp(MaxPower);
+	/*TSet tmp(MaxPower);
 	tmp.BitField = BitField & s.BitField;
-	return tmp;
+	return tmp;*/
+	TBitField tmp(MaxPower);
+	tmp = BitField & s.BitField;
+	TSet _s(tmp);
+	return _s;
 }
 
 TSet TSet::operator~(void) // дополнение
@@ -117,29 +125,19 @@ TSet TSet::operator~(void) // дополнение
 
 istream &operator>>(istream &istr, TSet &s) // ввод
 {
-	int i=0;
-	while ((i >= 0)&&(i < s.MaxPower))
+	int i = 0;
+	while ((i >= 0) && (i < s.MaxPower))
 	{
 		s.InsElem(i);
-		istr >> i ;
+		istr >> i;
 	}
 	return istr;
 }
 
 ostream& operator<<(ostream &ostr, const TSet &s) // вывод
 {
-	ostr<<"[";
-	for(int i=0; i<(s.MaxPower - 1); i++)
-	{
+	for (int i = 0; i < s.MaxPower; i++)
 		if (s.BitField.GetBit(i))
-		{
-			ostr<<i;
-		}
-	}
-	int z = s.MaxPower;
-	if (s.BitField.GetBit(z))
-		{
-			ostr<<z<<"]"<<endl;
-		}
+			ostr << i;
 	return ostr;
 }
