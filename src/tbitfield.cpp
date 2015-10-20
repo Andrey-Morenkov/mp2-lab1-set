@@ -155,7 +155,7 @@ TBitField TBitField::operator|(const TBitField &bf) // операция "или"
 		TBitField tmp(BitSize);
 	    for (int i=0; i< BitSize; i++)
 	    {
-		    int tmpval = (GetBit(i) | bf.GetBit(i));
+		    int tmpval = (GetBit(i) || bf.GetBit(i));
 		    if (tmpval == 0)
 			    tmp.ClrBit(i);
 		    else
@@ -170,7 +170,7 @@ TBitField TBitField::operator|(const TBitField &bf) // операция "или"
 			TBitField tmp(BitSize);
 			for (int i = 0; i < bf.BitSize; i++)
 			{
-				int tmpval = (GetBit(i) | bf.GetBit(i));
+				int tmpval = (GetBit(i) || bf.GetBit(i));
 		        if (tmpval == 0)
 			        tmp.ClrBit(i);
 		        else
@@ -188,7 +188,7 @@ TBitField TBitField::operator|(const TBitField &bf) // операция "или"
 			TBitField tmp(bf.BitSize);
 			for (int i = 0; i < BitSize; i++)
 			{
-				int tmpval = (GetBit(i) | bf.GetBit(i));
+				int tmpval = (GetBit(i) || bf.GetBit(i));
 		        if (tmpval == 0)
 			        tmp.ClrBit(i);
 		        else
@@ -211,7 +211,7 @@ TBitField TBitField::operator&(const TBitField &bf) // операция "и"
 		TBitField tmp(BitSize);
 	    for (int i=0; i< BitSize; i++)
 	    {
-		    int tmpval = (GetBit(i) & bf.GetBit(i));
+		    int tmpval = (GetBit(i) && bf.GetBit(i));
 		    if (tmpval == 0)
 			    tmp.ClrBit(i);
 		    else
@@ -226,7 +226,7 @@ TBitField TBitField::operator&(const TBitField &bf) // операция "и"
 			TBitField tmp(BitSize);
 			for (int i = 0; i < bf.BitSize; i++)
 			{
-				int tmpval = (GetBit(i) & bf.GetBit(i));
+				int tmpval = (GetBit(i) && bf.GetBit(i));
 		        if (tmpval == 0)
 			        tmp.ClrBit(i);
 		        else
@@ -241,7 +241,7 @@ TBitField TBitField::operator&(const TBitField &bf) // операция "и"
 			TBitField tmp(bf.BitSize);
 			for (int i = 0; i < BitSize; i++)
 			{
-				int tmpval = (GetBit(i) & bf.GetBit(i));
+				int tmpval = (GetBit(i) && bf.GetBit(i));
 		        if (tmpval == 0)
 			        tmp.ClrBit(i);
 		        else
