@@ -148,74 +148,48 @@ int TBitField::operator!=(const TBitField &bf) const // сравнение
 	}
 }
 
-/*TBitField TBitField::operator|(const TBitField &bf) // операция "или"
-{
-	TBitField tmp (BitSize);
-	for (int i=0; i<size; i++)
-	{
-		tmp.mas[i] = mas[i] | bf.mas[i];
-	}
-	return tmp;
-}
-
-TBitField TBitField::operator&(const TBitField &bf) // операция "и"
-{
-	TBitField tmp (BitSize);
-	for (int i=0; i<size; i++)
-	{
-		tmp.mas[i] = mas[i] & bf.mas[i];
-	}
-	return tmp;
-}*/
-
 TBitField TBitField::operator|(const TBitField &bf) // операция "или"
 {
-	int tmpsize = 0;
+	/*int TmpSize = 0;
 	int n = 0;
+
 	if (size >= bf.size)
-		tmpsize = size;
-	else tmpsize = bf.BitSize;
+		TmpSize = size;
+	else 
+		TmpSize = bf.BitSize;*/
 
-	TBitField tmp(tmpsize);
-	while ((size>tmp.size) && (bf.size>tmp.size))  
+	TBitField tmp(BitSize);
+	for (int i=0; i< BitSize; i++)
 	{
-		tmp.mas[n] = mas[n] + bf.mas[n];
-		n++;
-	};
-	if (tmp.size == size)
-	for (int i = n; i<size; i++)
-		tmp.mas[i] = mas[i];
-	else
-	for (int i = n; i<bf.size; i++)
-		tmp.mas[i] = bf.mas[i];
-
+		int tmpval = (GetBit(i) | bf.GetBit(i));
+		if (tmpval == 0)
+			tmp.ClrBit(i);
+		else
+			tmp.SetBit(i);
+	}
 	return tmp;
 }
 
 TBitField TBitField::operator&(const TBitField &bf) // операция "и"
 {
-	int tmpsize=0;
-	int n=0;
-	if (size>=bf.size)
-		tmpsize=size;
-	else tmpsize=bf.BitSize;
+	/*int TmpSize = 0;
+	int n = 0;
 
-	TBitField tmp(tmpsize);
-	while ((size>tmp.size)&&(bf.size>tmp.size))
+	if (size >= bf.size)
+		TmpSize = size;
+	else 
+		TmpSize = bf.BitSize;*/
+
+	TBitField tmp(BitSize);
+	for (int i=0; i< BitSize; i++)
 	{
-		tmp.mas[n] = mas[n]&bf.mas[n];// Errors ?
-		n++;
-	};
-	if (tmp.size==size)
-		for (int i=n;i<size;i++)
-			tmp.mas[i]=mas[i];
-	else
-		for (int i=n;i<bf.size;i++)
-			tmp.mas[i]=bf.mas[i];
-			
+		int tmpval = (GetBit(i) & bf.GetBit(i));
+		if (tmpval == 0)
+			tmp.ClrBit(i);
+		else
+			tmp.SetBit(i);
+	}
 	return tmp;
-
-
 }
 
 TBitField TBitField::operator~(void) // отрицание
