@@ -150,46 +150,108 @@ int TBitField::operator!=(const TBitField &bf) const // сравнение
 
 TBitField TBitField::operator|(const TBitField &bf) // операция "или"
 {
-	/*int TmpSize = 0;
-	int n = 0;
-
-	if (size >= bf.size)
-		TmpSize = size;
-	else 
-		TmpSize = bf.BitSize;*/
-
-	TBitField tmp(BitSize);
-	for (int i=0; i< BitSize; i++)
+	if (BitSize == bf.BitSize)
 	{
-		int tmpval = (GetBit(i) | bf.GetBit(i));
-		if (tmpval == 0)
-			tmp.ClrBit(i);
-		else
-			tmp.SetBit(i);
+		TBitField tmp(BitSize);
+	    for (int i=0; i< BitSize; i++)
+	    {
+		    int tmpval = (GetBit(i) | bf.GetBit(i));
+		    if (tmpval == 0)
+			    tmp.ClrBit(i);
+		    else
+			    tmp.SetBit(i);
+	    }
+	    return tmp;
 	}
-	return tmp;
+	else
+	{
+		if (BitSize > bf.BitSize)
+		{
+			TBitField tmp(BitSize);
+			for (int i = 0; i < bf.BitSize; i++)
+			{
+				int tmpval = (GetBit(i) | bf.GetBit(i));
+		        if (tmpval == 0)
+			        tmp.ClrBit(i);
+		        else
+			        tmp.SetBit(i);
+			}
+			for (int i = bf.BitSize; i < BitSize; i++)
+				if (GetBit(i) == 1)
+					tmp.SetBit(i);
+				else
+					tmp.ClrBit(i);
+			return tmp;
+		}
+		else
+		{
+			TBitField tmp(bf.BitSize);
+			for (int i = 0; i < BitSize; i++)
+			{
+				int tmpval = (GetBit(i) | bf.GetBit(i));
+		        if (tmpval == 0)
+			        tmp.ClrBit(i);
+		        else
+			        tmp.SetBit(i);
+			}
+			for (int i = bf.BitSize; i < BitSize; i++)
+				if (GetBit(i) == 1)
+					tmp.SetBit(i);
+				else
+					tmp.ClrBit(i);
+			return tmp;
+		}
+	}
 }
 
 TBitField TBitField::operator&(const TBitField &bf) // операция "и"
 {
-	/*int TmpSize = 0;
-	int n = 0;
-
-	if (size >= bf.size)
-		TmpSize = size;
-	else 
-		TmpSize = bf.BitSize;*/
-
-	TBitField tmp(BitSize);
-	for (int i=0; i< BitSize; i++)
+	if (BitSize == bf.BitSize)
 	{
-		int tmpval = (GetBit(i) & bf.GetBit(i));
-		if (tmpval == 0)
-			tmp.ClrBit(i);
-		else
-			tmp.SetBit(i);
+		TBitField tmp(BitSize);
+	    for (int i=0; i< BitSize; i++)
+	    {
+		    int tmpval = (GetBit(i) & bf.GetBit(i));
+		    if (tmpval == 0)
+			    tmp.ClrBit(i);
+		    else
+			    tmp.SetBit(i);
+	    }
+	    return tmp;
 	}
-	return tmp;
+	else
+	{
+		if (BitSize > bf.BitSize)
+		{
+			TBitField tmp(BitSize);
+			for (int i = 0; i < bf.BitSize; i++)
+			{
+				int tmpval = (GetBit(i) & bf.GetBit(i));
+		        if (tmpval == 0)
+			        tmp.ClrBit(i);
+		        else
+			        tmp.SetBit(i);
+			}
+			for (int i = bf.BitSize; i < BitSize; i++)
+				tmp.ClrBit(i);
+			return tmp;
+		}
+		else
+		{
+			TBitField tmp(bf.BitSize);
+			for (int i = 0; i < BitSize; i++)
+			{
+				int tmpval = (GetBit(i) & bf.GetBit(i));
+		        if (tmpval == 0)
+			        tmp.ClrBit(i);
+		        else
+			        tmp.SetBit(i);
+			}
+			for (int i = BitSize; i < bf.BitSize; i++)
+				tmp.ClrBit(i);
+			return tmp;
+		}
+	}
 }
 
 TBitField TBitField::operator~(void) // отрицание
