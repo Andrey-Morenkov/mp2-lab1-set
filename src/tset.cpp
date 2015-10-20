@@ -79,10 +79,20 @@ int TSet::operator!=(const TSet &s) const // сравнение
 
 TSet TSet::operator+(const TSet &s) // объединение
 {
-	TBitField tmp (MaxPower);
-	tmp = BitField | s.BitField;
-	TSet _S (tmp);
-	return _S;
+	if (MaxPower > s.MaxPower)
+	{
+		TBitField tmp (MaxPower);
+	    tmp = BitField | s.BitField;
+	    TSet _S (tmp);
+	    return _S;
+	}
+	else
+	{
+		TBitField tmp (s.MaxPower);
+	    tmp = BitField | s.BitField;
+	    TSet _S (tmp);
+	    return _S;
+	}
 }
 
 TSet TSet::operator+(const int Elem) // объединение с элементом
