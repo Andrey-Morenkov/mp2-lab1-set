@@ -31,3 +31,10 @@
 *.xslt
 *.tlog
 *.log
+*.opensdf
+*.lastbuildstate
+*.idb
+*.idb
+*.vcxproj
+*.suo
+*.lastbuildstate
