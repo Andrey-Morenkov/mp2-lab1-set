@@ -21,7 +21,7 @@ TBitField::TBitField(int len)
 	else
 	{
 		BitSize = len;
-        size = (BitSize/(sizeof(TELEM)*8))+1;
+        size = BitSize/(sizeof(TELEM)*8)+1;
         mas = new TELEM[size];
         for (int i = 0; i<size; i++)
       	  mas[i] = 0;
@@ -34,7 +34,7 @@ TBitField::TBitField(const TBitField &bf) // конструктор копиро
 	BitSize = bf.BitSize;
 	mas = new TELEM[size];
 	for(int i = 0; i<size; i++)
-	mas[i] = bf.mas[i];
+	    mas[i] = bf.mas[i];
 }
 
 TBitField::~TBitField() // деструктор
@@ -44,19 +44,19 @@ TBitField::~TBitField() // деструктор
 
 int TBitField::GetMemIndex(const int n) const // индекс Мем для бита n // номер ячейки которая int
 {
-	if ((n < 0)||(n > BitSize))
+	if ((n < 0) || (n > BitSize))
 		throw n;
 	else
-      return(n/(sizeof(TELEM)*8));
+      return(n / (sizeof(TELEM)*8));
 }
 
 TELEM TBitField::GetMemMask(const int n) const // битовая маска для бита n
 {
-	if ((n < 0)||(n > BitSize))
+	if ((n < 0) || (n > BitSize))
 		throw n;
 	else
 	{
-		int tmp = n%(sizeof(TELEM)*8);
+		int tmp = n % (sizeof(TELEM)*8);
         TELEM mask  = 1;
         mask=(mask << tmp);
         return (mask);
@@ -78,7 +78,7 @@ void TBitField::SetBit(const int n) // установить бит
 	{
 		int m = GetMemIndex(n);
         TELEM mask = GetMemMask(n);
-        mas[m]=mas[m] | mask;
+        mas[m] = (mas[m] | mask);
 	}
 }
 
@@ -102,7 +102,7 @@ int TBitField::GetBit(const int n) const // получить значение б
 	{
 		int m = GetMemIndex(n); // ищем ячейку
         TELEM mask = GetMemMask(n); // маска на эту ячейку
-        int result = mask & mas[m]; 
+        int result = (mask & mas[m]); 
         if (result == 0)
         	return(0);
         else
@@ -194,8 +194,8 @@ TBitField TBitField::operator|(const TBitField &bf) // операция "или"
 		        else
 			        tmp.SetBit(i);
 			}
-			for (int i = bf.BitSize; i < BitSize; i++)
-				if (GetBit(i) == 1)
+			for (int i = BitSize; i < bf.BitSize; i++)
+				if (bf.GetBit(i) == 1)
 					tmp.SetBit(i);
 				else
 					tmp.ClrBit(i);

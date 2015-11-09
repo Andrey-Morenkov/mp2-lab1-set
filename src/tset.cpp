@@ -8,9 +8,7 @@
 #include "tset.h"
 #include "tbitfield.h"
 
-TSet::TSet(int mp = 100) : BitField(mp),MaxPower(mp)
-{
-}
+TSet::TSet(int mp = 100) : BitField(mp), MaxPower(mp){}
 
 // конструктор копирования
 TSet::TSet(const TSet &s) : BitField(s.MaxPower)
@@ -29,12 +27,12 @@ TSet::TSet(const TBitField &bf) : BitField(bf.GetLength())
 // оператор преобразования типа 
 TSet::operator TBitField()
 {
-	return (BitField);
+	return BitField;
 }
 
 int TSet::GetMaxPower(void) const // получить макс. к-во эл-тов
 {
-	return (MaxPower);
+	return MaxPower;
 }
 
 int TSet::IsMember(const int Elem) const // элемент множества?
@@ -63,7 +61,7 @@ TSet& TSet::operator=(const TSet &s) // присваивание
 
 int TSet::operator==(const TSet &s) const // сравнение
 {
-	if ((MaxPower == s.MaxPower)&&(BitField == s.BitField))
+	if ((MaxPower == s.MaxPower) && (BitField == s.BitField))
     	return 1;
 	else
 		return 0;
@@ -71,7 +69,7 @@ int TSet::operator==(const TSet &s) const // сравнение
 
 int TSet::operator!=(const TSet &s) const // сравнение
 {
-	if ((MaxPower == s.MaxPower)&&(BitField == s.BitField))
+	if ((MaxPower == s.MaxPower) && (BitField == s.BitField))
     	return 0;
 	else
 		return 1;

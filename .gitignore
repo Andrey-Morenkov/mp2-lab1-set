@@ -41,3 +41,6 @@
 *.lastbuildstate
 *.vcxproj
 sln/vc10/bitfield/Debug/vc100.idb
+*.vcxproj
+*.lastbuildstate
+*.lastbuildstate
